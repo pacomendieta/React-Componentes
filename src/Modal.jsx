@@ -1,20 +1,28 @@
-import React,{useRef,useState} from 'react'
+import React,{useRef,useImperativeHandle, forwardRef} from 'react'
 import './modal.css'
-import Table from './Tabla.jsx'
 
-export const Modal = ( {Componente, estado="visible"} )=>{
+
+export const Modal = ( props, ref )=>{
   const refModal = useRef()
   const hCerrarModal=()=>{
      refModal.current.style.visibility='hidden'
   }
+  // Metodos visibles en el Padre: (con ref.current.metodo() )
+  useImperativeHandle( ref, ()=>{ 
+    return {
+      abrir()  { refModal.current.style.visibility='visible' },
+      cerrar() { refModal.current.style.visibility='hidden' }
+    }
+  } )
+  
 
   return (
   <> 
    <div  ref={refModal}  className='modal-container '
-   style={{"visibility": `${estado}`}} >
+    >
       <div className='modal-content'>
         <h1>Contenido Modal</h1>
-        <Componente />
+        <props.Componente />
         <button className="close-modal" id="close-modal" onClick={hCerrarModal}>
             close
         </button>
@@ -23,4 +31,5 @@ export const Modal = ( {Componente, estado="visible"} )=>{
   </>
   )
 }
+Modal = forwardRef ( Modal)
 

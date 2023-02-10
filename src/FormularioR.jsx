@@ -4,7 +4,7 @@ import {useState} from 'react'
 
 export const FormularioR = ( )=>{
 let [estado, setEstado] = useState({email:'email', password:'pass'})
- 
+
   const actualizaCampo=(e, campo )=>{ 
     let campos = {...estado}
     console.log("actualizaCampo:",e.target.value,"/",campo)

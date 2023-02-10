@@ -1,4 +1,4 @@
-import React, {Component, useState} from "react";
+import React, {Component, useState,  useRef} from "react";
 import { render} from 'react-dom';
 import { createContext } from 'react'
 import "./style.css";
@@ -6,14 +6,16 @@ import { FormularioR} from './FormularioR'
 import { classnames } from './classnames'
 import Table from './Tabla'
 import {Modal} from './Modal'
+import {Prueba} from './Proptypes.tsx'
 
-let nombre = "Paco";
+let nombre= "Paco";
 
 
-class App extends Component {
+class App2 extends Component {
     constructor (  ) {
       super(  );
-      this.estado="visible"
+      this.estado="hidden"
+      this.refModal = null
     }
 
     render() {
@@ -22,7 +24,7 @@ class App extends Component {
         console.log("Visible:", this.estado)
       }
       const ThemeContext = createContext()
-
+      
       return (
         <ThemeContext.Provider Tema={"oscuro"}>
         <div>
@@ -34,7 +36,7 @@ class App extends Component {
         < Counter />
 
         */}
-
+        < Prueba />
         < Table />
         <button onClick={hOpenModal} >Abrir Modal</button> 
         < Modal Componente={FormularioR} estado={this.estado} />
@@ -44,6 +46,40 @@ class App extends Component {
       );
     }
 }
+
+export const App =()=> {
+
+    let estado="visible"
+    let refModal = useRef(null)
+ 
+    const hOpenModal=()=>{
+      refModal.current.abrir()
+    }
+    const ThemeContext = createContext()
+    
+    return (
+      <ThemeContext.Provider Tema={"oscuro"}>
+      <div>
+      {/*
+
+      < Formulario  />
+      < FormularioR />
+      < Button  text="Botón" estilo='primary'></Button>
+      < Counter />
+
+      */}
+      < Prueba />
+      < Table />
+      <button onClick={hOpenModal} >Abrir Modal</button> 
+      < Modal Componente={FormularioR} estado={estado} ref={refModal} />
+
+      </div>
+      </ThemeContext.Provider>
+    );
+  }
+
+
+
 
 class Formulario extends Component {
   constructor ( props ) {
