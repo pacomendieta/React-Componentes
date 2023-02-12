@@ -16,10 +16,11 @@ useEffect(()=>{
     .then ( (res)=>{ 
       console.log("RES:", res)
       //paginaInicial = JSON.parse( JSON.stringify( res )); 
-      paginaInicial = {...res}
+      paginaInicial = {results:[...res]}
       console.log("DATA1:",paginaInicial)
       //setPaginaActual( paginaInicial ) //setPaginaActual( paginaInicial )
       setPaginaActual(paginaInicial)
+      console.log("Pagina Actual:",paginaActual)
       setCargado(true)
     })
   }
@@ -36,13 +37,14 @@ useEffect(()=>{
             <th>Last Name</th>
           </tr>
         </thead>
+        {       console.log("Pagina Actual---:",paginaActual) }
         <tbody>
         {
-            paginaActual.results?.map((row,idx)=>
+               paginaActual.results.map((row,idx)=>
               <tr key={idx}>
                 <td>{row.id}</td>
                 <td>{row.firstName}</td>
-                <td>{row.secondName}</td>
+                <td>{row.lastName}</td>
               </tr>
             )
         }

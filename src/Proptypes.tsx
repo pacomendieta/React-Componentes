@@ -2,12 +2,12 @@ import PropTypes from "prop-types"
 import React from 'react'
 
 
-export const Prueba=()=>{
+export const Prueba=( props )=>{
   
   let x:PropTypes.string
   
   return (
-      <button>prueba</button>
+      <button>{props.titulo}</button>
   )
 }
 
