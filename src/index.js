@@ -49,8 +49,7 @@ export const App =()=> {
 
       
       <button onClick={hOpenModal} >Abrir Modal</button> 
-      <Table />
-      { /* <ListaRegistros /> */}
+      <ListaRegistros /> 
       < Modal Componente={FormularioR}  ref={refModal} />
 
 
