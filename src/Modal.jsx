@@ -2,7 +2,7 @@ import React,{useRef,useImperativeHandle, forwardRef} from 'react'
 import './modal.css'
 
 
-export const Modal = ( props, ref )=>{
+export let Modal = ( props, ref )=>{
   const refModal = useRef()
   const hCerrarModal=()=>{
      refModal.current.style.visibility='hidden'
