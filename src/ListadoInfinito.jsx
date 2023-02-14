@@ -4,42 +4,60 @@ import {Column, Table} from 'react-virtualized';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 */
 //import 'react-virtualized/styles.css'
-import {
-  AutoSizer,
-  CellMeasurer,
-  CellMeasurerCache,
+import {   
+  AutoSizer,   //Utilidad aporta al listado la Altura y Anchura del contenedor donde se encuentra
+  CellMeasurer, //Utilidad que aporta la altura en px de cada fila (contenido fila de varias lineas o parrafos)
+  CellMeasurerCache, // complementa utilidad CellMeassurer
   InfiniteLoader, List
 } from "react-virtualized"
 
 export const ListadoInfinito = ( props ) =>{
-  console.log("Listado.tabla=", props.tabla)
 
-let estilos = {
-   "height":"2em"
-}
-let styleContenedor = {
-  "height":"300px",
+let styleContenedor;
+
+styleContenedor = props.estilos 
+?
+  {...props.estilos }
+: {
+  "height":"600px",
+  "width":  "600px",
   "color": "white",
-  "backgroundColor":"black"
+  "backgroundColor":"black",
+  "padding": "0px"
 }
+
+//Usar CellMeasurer para tener un rowHeight que se calcula para cada registro segun las filas que ocupen los datos que contiene
+const cache= React.useRef(
+  new CellMeasurerCache({
+    fixedWidth: true,
+    defaultHeight:100
+  })
+)
+
+
+
 
 return (
  <>
-  <h2>Scroll infinito</h2>
+  {props.titulo?<h2>{props.titulo}</h2>:<></> }
   <div style={styleContenedor}>
   <AutoSizer>{
     ({width, height})=>( 
       <List
-        height = {height /* altura utilizable en medidas CSS */}
-        width={width}
-        rowHeight={(n)=>24 /* altura fila???, numero o funcion: (index)=>num */ }   
-        rowCount = {24}
-        overscanRowCount={1 /*filas cacheadas al hacer scroll, def=10 */}
+        height   ={height    /* altura utilizable en medidas CSS */}
+        width    ={width    /* ancho */ }
+        rowHeight={cache.current.rowHeight   /* altura fila en pixeles. Usar funcion si hay filas con altura variable */ }   
+    
+        rowCount ={props.tabla.length +1       /* numero total registros/filas  */ }
+        overscanRowCount={10 /*filas cacheadas al hacer scroll, def=10 */}
         rowRenderer = { ({index, key, style, parent})=>{
           return (
-            <div key={index}>
-              Elementos:{ props.tabla[index]? <>{props.tabla[index].firstName}</> : "-no--"}
-            </div>
+            <CellMeasurer key={key} cache={cache.current} parent={parent} columnIndex={0} rowIndex={index}>
+              <div style={style}>
+                <p>* { props.tabla[index]? <>{props.tabla[index].id} {props.tabla[index].nombre}</> : "-no--"}</p>
+                <p>{props.tabla[index].texto}</p>
+              </div>
+            </CellMeasurer>
           );
         } }
       >
@@ -50,18 +68,6 @@ return (
   </AutoSizer>
 
   </div>
-  <h2>Listado Infinito </h2>
-  <>
-  {
-  props.tabla?.map( (fila)=>
-
-    <div key={fila.id}>
-       <span>{fila.id}</span> <span>{fila.firstName}</span>
-    </div>
-   
-   )
-  }
-   </>
  </>
 )
 
