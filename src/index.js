@@ -41,6 +41,7 @@ export const App =()=> {
       < FormularioR />
       < Button  text="Botón" estilo='primary'></Button>
       < Counter />
+      <ListaRegistros /> // scroll infinito, no funciona en stackblitz 
       < Table />
       */}
       < Prueba titulo='Botón' />
@@ -49,7 +50,7 @@ export const App =()=> {
 
       
       <button onClick={hOpenModal} >Abrir Modal</button> 
-      <ListaRegistros /> 
+      
       < Modal Componente={FormularioR}  ref={refModal} />
 
 
