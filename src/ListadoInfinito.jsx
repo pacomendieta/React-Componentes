@@ -1,9 +1,10 @@
+//Componente ListadoInfinito ( {tabla:[], estilos:{json}={}  })
+//   tabla: { id:number,  nombre: string, apellido:string}
+//   estilos: { css aplica al contenedor principal del listado }
+//Funcionalidad: muestra registros en un contenedor con scroll infinito y la altura de fila adaptada al contenido de cada registro
+
 import React from 'react'
-/*
-import {Column, Table} from 'react-virtualized';
-import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
-*/
-//import 'react-virtualized/styles.css'
+
 import {   
   AutoSizer,   //Utilidad aporta al listado la Altura y Anchura del contenedor donde se encuentra
   CellMeasurer, //Utilidad que aporta la altura en px de cada fila (contenido fila de varias lineas o parrafos)
@@ -67,7 +68,7 @@ return (
   }
   </AutoSizer>
 
-  </div>
+  </div> 
  </>
 )
 
