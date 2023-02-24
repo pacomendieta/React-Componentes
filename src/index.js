@@ -9,6 +9,7 @@ import {Modal} from './Modal'
 import {Prueba} from './Proptypes.tsx'
 import {ListaRegistros} from './ListaRegistros'
 import {ListadoInfinito} from './ListadoInfinito'
+import { Formulario } from "./Formulario";
 
 let nombre= "Paco";
 
@@ -37,7 +38,7 @@ export const App =()=> {
       <div>
       {/*
 
-      < Formulario  />
+      < FormularioI  />
       < FormularioR />
       < Button  text="Botón" estilo='primary'></Button>
       < Counter />
@@ -47,7 +48,7 @@ export const App =()=> {
       < Prueba titulo='Botón' />
       < Prueba titulo='Botón Dos' />
 
-
+      < Formulario />
       
       <button onClick={hOpenModal} >Abrir Modal</button> 
       
@@ -62,7 +63,7 @@ export const App =()=> {
 
 
 
-class Formulario extends Component {
+class FormularioI extends Component {
   constructor ( props ) {
     super( props );
     this.state = { email:'', password:''};
